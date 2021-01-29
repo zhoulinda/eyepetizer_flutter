@@ -23,7 +23,8 @@ class RefreshListView extends StatefulWidget {
       this.enableLoadMore: true,
       this.loadStatus,
       this.itemCount,
-      this.itemBuilder})
+      this.itemBuilder,
+      this.child})
       : super(key: key);
 
   final ScrollController scrollController;
@@ -34,6 +35,7 @@ class RefreshListView extends StatefulWidget {
   final int loadStatus;
   final int itemCount;
   final IndexedWidgetBuilder itemBuilder;
+  final Widget child;
 
   @override
   State createState() {
@@ -61,10 +63,12 @@ class RefreshListViewState extends State<RefreshListView> {
       children: [
         RefreshIndicator(
             onRefresh: widget.onRefresh,
-            child: ListView.builder(
-                controller: widget.scrollController,
-                itemBuilder: widget.itemBuilder,
-                itemCount: widget.itemCount))
+            child: widget.child == null
+                ? ListView.builder(
+                    controller: widget.scrollController,
+                    itemBuilder: widget.itemBuilder,
+                    itemCount: widget.itemCount)
+                : widget.child)
       ],
     ));
   }

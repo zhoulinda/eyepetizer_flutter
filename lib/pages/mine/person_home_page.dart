@@ -12,48 +12,63 @@ import 'package:flutter/material.dart';
 /// 创建日期: 2020/12/21
 ///
 class PersonHomePage extends StatefulWidget {
-  const PersonHomePage({Key key, this.url}) : super(key: key);
+  const PersonHomePage({Key key, this.url, this.tabName}) : super(key: key);
   final String url;
-  static const String TAG = "PERSON_HOME_PAGE";
+  final String tabName;
 
   @override
-  State createState() {
-    return PersonHomePageState();
-  }
+  State createState() => PersonHomePageState();
 }
 
 class PersonHomePageState extends State<PersonHomePage>
     with AutomaticKeepAliveClientMixin {
-  ScrollController _scrollController;
+  ScrollController scrollController;
 
   @override
   void initState() {
     super.initState();
-    _scrollController = ScrollController();
+    scrollController = ScrollController();
   }
+
   @override
   void dispose() {
     super.dispose();
-    _scrollController.dispose();
+    scrollController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     PersonMainBloc bloc = BlocProvider.of<PersonMainBloc>(context);
     bloc.getPersonHomePageData(widget.url);
     return StreamBuilder<List<Item>>(
         stream: bloc.personHomeStream,
         builder: (BuildContext context, AsyncSnapshot<List<Item>> snapshot) {
-          return ListView.builder(
-              shrinkWrap: false,
-              physics: NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-              controller: _scrollController,
-              itemBuilder: (context, index) {
-                Item itemData = snapshot.data[index];
-                return ViewCardUtil.getViewCard(itemData);
-              },
-              itemCount: snapshot.data == null ? 0 : snapshot.data.length);
+          return SafeArea(
+            top: false,
+            bottom: false,
+            child: Builder(builder: (BuildContext context) {
+              return CustomScrollView(
+                key: PageStorageKey<String>(widget.tabName),
+                slivers: <Widget>[
+                  SliverOverlapInjector(
+                    handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
+                        context),
+                  ),
+                  SliverPadding(
+                      padding: const EdgeInsets.all(0),
+                      sliver: SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                              (BuildContext context, int index) {
+                        return ViewCardUtil.getViewCard(snapshot.data[index]);
+                      },
+                              childCount: snapshot.data == null
+                                  ? 0
+                                  : snapshot.data.length)))
+                ],
+              );
+            }),
+          );
         });
   }
 

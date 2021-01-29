@@ -21,18 +21,18 @@ class CommunityPageState extends State<CommunityPage>
     Tab(text: "关注"),
   ];
 
-  TabController _tabController;
+  TabController tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, length: _tabs.length);
+    tabController = TabController(vsync: this, length: _tabs.length);
   }
 
   @override
   void dispose() {
     super.dispose();
-    _tabController.dispose();
+    tabController.dispose();
   }
 
   @override
@@ -41,14 +41,18 @@ class CommunityPageState extends State<CommunityPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: TabBar(
           tabs: _tabs,
-          controller: _tabController,
-          labelColor: Colors.lightBlue,
+          controller: tabController,
+          labelColor: Colors.blueAccent,
+          unselectedLabelColor: Colors.grey,
+          indicatorColor: Colors.blueAccent,
+          indicatorSize: TabBarIndicatorSize.label,
         ),
         body: TabBarView(
           children: [RecommendPage(), AttentionPage()],
-          controller: _tabController,
+          controller: tabController,
         ));
   }
 }

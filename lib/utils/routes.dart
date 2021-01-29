@@ -8,6 +8,7 @@ import 'package:eyepetizer_flutter/pages/login/register_page.dart';
 import 'package:eyepetizer_flutter/pages/mine/edit_personal_data_page.dart';
 import 'package:eyepetizer_flutter/pages/mine/person_main_page.dart';
 import 'package:eyepetizer_flutter/pages/photo_view_page.dart';
+import 'package:eyepetizer_flutter/pages/setting/setting_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -26,7 +27,8 @@ const PAGE_DETAIL = "/detail_page";
 const PAGE_PICTURE_DETAIL = "/picture_detail_page";
 const PAGE_PERSON_MAIN_PAGE = "/person_main_page";
 const PAGE_EDIT_PERSON_DATA = "/edit_person_data_page";
-const PAGE_PHOTO_VIEW = "/page_photo_view_page";
+const PAGE_PHOTO_VIEW = "/photo_view_page";
+const PAGE_SETTING = "/setting_page";
 
 final Map<String, WidgetBuilder> routes = {
   // pageMain: (context) => MainPage(),
@@ -39,7 +41,8 @@ final Map<String, WidgetBuilder> routes = {
   PAGE_PERSON_MAIN_PAGE: (context) =>
       BlocProvider(child: PersonMainPage(), bloc: PersonMainBloc()),
   PAGE_EDIT_PERSON_DATA: (context) => EditPersonDataPage(),
-  PAGE_PHOTO_VIEW: (context) => PhotoViewPage()
+  PAGE_PHOTO_VIEW: (context) => PhotoViewPage(),
+  PAGE_SETTING: (context) => SettingPage()
 };
 
 Route<dynamic> routeFactory(RouteSettings settings) {

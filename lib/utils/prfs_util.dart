@@ -36,6 +36,11 @@ class PrefsUtil {
     prefs.remove(key);
   }
 
+  static clear() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+  }
+
   /// put object.
   static Future<bool> putObject(String key, Object value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

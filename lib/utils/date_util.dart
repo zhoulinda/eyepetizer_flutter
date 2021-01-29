@@ -19,12 +19,6 @@ class DateUtil {
     hour = seconds ~/ 3600;
     min = (seconds - hour * 3600) ~/ 60;
     second = seconds - hour * 3600 - min * 60;
-    print("hour:  " +
-        hour.toString() +
-        "   min:   " +
-        min.toString() +
-        "   second:   " +
-        second.toString());
     if (hour > 0) {
       duration += hour.toString() + ":";
     }

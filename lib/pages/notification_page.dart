@@ -25,14 +25,15 @@ class NotificationPageState extends State<NotificationPage>
 
   @override
   Widget build(BuildContext context) {
-    registerListen();
+    registerListener();
     return Scaffold(
+        backgroundColor: Colors.white,
         body: Center(
             child: Text("Notification",
                 style: TextStyle(fontSize: 60, color: Colors.pink))));
   }
 
-  void registerListen() {
+  void registerListener() {
     loginSubscription = bus.on<LoginEvent>().listen((event) {
       print("linda:   " + "notification 收到了登录事件");
     });

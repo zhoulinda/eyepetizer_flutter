@@ -1,5 +1,6 @@
 import 'package:eyepetizer_flutter/pages/home/daily_page.dart';
 import 'package:eyepetizer_flutter/pages/home/discover_page.dart';
+import 'package:eyepetizer_flutter/utils/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -20,18 +21,18 @@ class HomePageState extends State<HomePage>
     Tab(text: '发现'),
     Tab(text: "日报"),
   ];
-  TabController _tabController;
+  TabController tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, length: _tabs.length);
+    tabController = TabController(vsync: this, length: _tabs.length);
   }
 
   @override
   void dispose() {
     super.dispose();
-    _tabController.dispose();
+    tabController.dispose();
   }
 
   @override
@@ -41,14 +42,42 @@ class HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: TabBar(
-          tabs: _tabs,
-          controller: _tabController,
-          labelColor: Colors.lightBlue,
-        ),
+            tabs: _tabs,
+            controller: tabController,
+            labelColor: Colors.blueAccent,
+            unselectedLabelColor: Colors.grey,
+            indicatorColor: Colors.blueAccent,
+            indicatorSize: TabBarIndicatorSize.label),
         body: TabBarView(
+          controller: tabController,
           children: [DiscoverPage(), DailyPage()],
-          controller: _tabController,
+        ),
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Colors.lightBlue,
+                  ),
+                  child: Center(
+                    child: SizedBox(
+                        width: 100,
+                        height: 100,
+                        child: CircleAvatar(
+                            backgroundImage: new AssetImage(
+                                'assets/images/ic_launcher.png'))),
+                  )),
+              ListTile(
+                  leading: Icon(Icons.settings),
+                  title: Text('设置'),
+                  onTap: () {
+                    Navigator.pushNamed(context, PAGE_SETTING);
+                  })
+            ],
+          ),
         ));
   }
 }

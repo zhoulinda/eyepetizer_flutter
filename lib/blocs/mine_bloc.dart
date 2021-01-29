@@ -31,11 +31,9 @@ class MineBloc extends BaseBloc {
   }
 
   getUserData() {
-    PrefsUtil.getObj<Login>(
-        PrefsKey.USER_DATA, (v) => Login.fromJson(v)).then((value) {
-      if (value != null) {
-        mineStreamController.sink.add(value.member);
-      }
+    PrefsUtil.getObj<Login>(PrefsKey.USER_DATA, (v) => Login.fromJson(v))
+        .then((value) {
+      mineStreamController.sink.add(value == null ? null : value.member);
     });
   }
 

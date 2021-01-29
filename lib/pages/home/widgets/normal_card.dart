@@ -53,6 +53,8 @@ class NormalCard extends StatelessWidget {
                           Text(data.content.data.title,
                               textAlign: TextAlign.left,
                               maxLines: 1,
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                   fontSize: 15,
                                   color: Colors.black,

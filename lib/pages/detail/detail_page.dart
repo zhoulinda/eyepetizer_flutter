@@ -1,15 +1,16 @@
+import 'dart:io';
+
 import 'package:chewie/chewie.dart';
 import 'package:eyepetizer_flutter/blocs/bloc_provider.dart';
 import 'package:eyepetizer_flutter/blocs/detail_bloc.dart';
-import 'package:eyepetizer_flutter/http/repository/detail_repository.dart';
 import 'package:eyepetizer_flutter/model/detail.dart';
 import 'package:eyepetizer_flutter/model/item.dart';
 import 'package:eyepetizer_flutter/pages/detail/widgets/author_info.dart';
 import 'package:eyepetizer_flutter/pages/detail/widgets/video_info.dart';
-import 'package:eyepetizer_flutter/utils/display_util.dart';
 import 'package:eyepetizer_flutter/widgets/cover_image_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 
 import 'widgets/relate_videos.dart';
@@ -36,11 +37,6 @@ class _DetailState extends State<DetailPage> {
   bool isLoaded = false;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   void dispose() {
     super.dispose();
     _videoPlayerController.dispose();
@@ -58,60 +54,57 @@ class _DetailState extends State<DetailPage> {
       bloc.getDetailData(id);
       bloc.getRelateVideo(id);
     }
-    return StreamBuilder<Detail>(
-        stream: bloc.detailStream,
-        builder: (BuildContext context, AsyncSnapshot<Detail> snapshot) {
-          if (snapshot.data == null) {
-            return Container();
-          }else {
-            return Scaffold(
-                body: OrientationBuilder(builder: (context, orientation) {
-              initVideoPlayer(context, orientation, snapshot.data);
-              return Column(children: [
-                Container(height: barHeight, color: Colors.black),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: videoHeight,
-                  child: Chewie(controller: _chewieController),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                      height: MediaQuery.of(context).size.height,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image:
-                                  NetworkImage(snapshot.data.cover.blurred))),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            VideoInfo(data: snapshot.data),
-                            AuthorInfo(data: snapshot.data),
-                            StreamBuilder<List<Item>>(
-                                stream: bloc.relateVideoStream,
-                                builder: (BuildContext context,
-                                    AsyncSnapshot<List<Item>> snapshot) {
-                                  return RelatedVideos(data: snapshot.data);
-                                })
-                          ],
-                        ),
-                      )),
-                ),
-              ]);
-            }));
-          }
-        });
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.light,
+      child: StreamBuilder<Detail>(
+          stream: bloc.detailStream,
+          builder: (BuildContext context, AsyncSnapshot<Detail> snapshot) {
+            if (snapshot.data == null) {
+              return Container();
+            } else {
+              return Scaffold(
+                  body: OrientationBuilder(builder: (context, orientation) {
+                initVideoPlayer(context, orientation, snapshot.data);
+                return Column(children: [
+                  Container(height: barHeight, color: Colors.black),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: videoHeight,
+                    child: Chewie(controller: _chewieController),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                        height: MediaQuery.of(context).size.height,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image:
+                                    NetworkImage(snapshot.data.cover.blurred))),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              VideoInfo(data: snapshot.data),
+                              AuthorInfo(data: snapshot.data),
+                              StreamBuilder<List<Item>>(
+                                  stream: bloc.relateVideoStream,
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<List<Item>> snapshot) {
+                                    return RelatedVideos(data: snapshot.data);
+                                  })
+                            ],
+                          ),
+                        )),
+                  ),
+                ]);
+              }));
+            }
+          }),
+    );
   }
 
   void initVideoPlayer(
       BuildContext context, Orientation orientation, Detail detail) {
-    print("orientation:   " +
-        orientation.toString() +
-        "    width:   " +
-        MediaQuery.of(context).size.width.toString() +
-        "   height:   " +
-        MediaQuery.of(context).size.height.toString());
     _videoPlayerController = VideoPlayerController.network(detail.playUrl);
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController,

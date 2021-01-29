@@ -46,34 +46,41 @@ class HorizontalScrollCollectionCard extends StatelessWidget {
                           imageUrl: data.data.itemList[index].data.image,
                           borderRadius: 3)),
                   Container(
-                    padding: EdgeInsets.fromLTRB(0, 10, 10, 0),
-                    child: Row(
-                      children: [
-                        CoverImageWidget(
-                            imageUrl: data.data.itemList[index].data.icon,
-                            width: 50,
-                            height: 50,
-                            borderRadius: 100),
-                        SizedBox(width: 20),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(data.data.itemList[index].data.title,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold)),
-                            Text(data.data.itemList[index].data.description,
-                                style: TextStyle(
-                                    color: Colors.grey, fontSize: 10)),
-                          ],
-                        ),
-                        Spacer(),
-                        Icon(Icons.share_rounded)
-                      ],
-                    ),
-                  )
+                      margin: EdgeInsets.fromLTRB(0, 10, 5, 0),
+                      child: Row(
+                        children: [
+                          CoverImageWidget(
+                              imageUrl: data.data.itemList[index].data.icon,
+                              width: 50,
+                              height: 50,
+                              borderRadius: 100),
+                          SizedBox(width: 10),
+                          Expanded(
+                              flex: 1,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    data.data.itemList[index].data.title,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold),
+                                    maxLines: 1,
+                                    softWrap: true,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  Text(
+                                      data.data.itemList[index].data
+                                          .description,
+                                      style: TextStyle(
+                                          color: Colors.grey, fontSize: 10)),
+                                ],
+                              )),
+                          Icon(Icons.share_rounded)
+                        ],
+                      ))
                 ],
               );
             },

@@ -7,9 +7,11 @@ import 'package:eyepetizer_flutter/model/item.dart';
 import 'package:eyepetizer_flutter/pages/error_page.dart';
 import 'package:eyepetizer_flutter/res/strings.dart';
 import 'package:eyepetizer_flutter/utils/view_card_util.dart';
+import 'package:eyepetizer_flutter/widgets/floating_button.dart';
 import 'package:eyepetizer_flutter/widgets/footer_view.dart';
 import 'package:eyepetizer_flutter/widgets/refresh_listview.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 /// 描述 :    首页->发现
 ///
@@ -29,12 +31,23 @@ class DiscoverPage extends StatefulWidget {
 class _DiscoverState extends State<DiscoverPage>
     with AutomaticKeepAliveClientMixin {
   bool isLoader = false;
+  bool isShowFloatBtn = false;
   ScrollController _scrollController;
 
   @override
   void initState() {
     super.initState();
     _scrollController = ScrollController();
+    _scrollController.addListener(() {
+      int offset = _scrollController.offset.toInt();
+      if (offset < 480 && isShowFloatBtn) {
+        isShowFloatBtn = false;
+        setState(() {});
+      } else if (offset > 480 && !isShowFloatBtn) {
+        isShowFloatBtn = true;
+        setState(() {});
+      }
+    });
   }
 
   @override
@@ -53,19 +66,22 @@ class _DiscoverState extends State<DiscoverPage>
       isLoader = true;
       bloc.onRefresh(labelId: Strings.discover);
     }
-    return StreamBuilder<List<Item>>(
-        stream: bloc.discoverStream,
-        builder: (BuildContext context, AsyncSnapshot<List<Item>> snapshot) {
-          return RefreshListView(
-              onRefresh: ({bool isReload}) {
-                return bloc.onRefresh(
-                    labelId: Strings.discover, isReload: isReload);
-              },
-              scrollController: _scrollController,
-              itemCount: snapshot.data == null ? 0 : snapshot.data.length,
-              itemBuilder: (context, index) {
-                return ViewCardUtil.getViewCard(snapshot.data[index]);
-              });
-        });
+    return Scaffold(
+        body: StreamBuilder<List<Item>>(
+            stream: bloc.discoverStream,
+            builder:
+                (BuildContext context, AsyncSnapshot<List<Item>> snapshot) {
+              return RefreshListView(
+                  onRefresh: ({bool isReload}) {
+                    return bloc.onRefresh(
+                        labelId: Strings.discover, isReload: isReload);
+                  },
+                  scrollController: _scrollController,
+                  itemCount: snapshot.data == null ? 0 : snapshot.data.length,
+                  itemBuilder: (context, index) {
+                    return ViewCardUtil.getViewCard(snapshot.data[index]);
+                  });
+            }),
+        floatingActionButton: FloatingButton(controller: _scrollController));
   }
 }
