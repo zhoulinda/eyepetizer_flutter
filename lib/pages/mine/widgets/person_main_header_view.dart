@@ -26,7 +26,10 @@ class PersonMainHeaderView extends StatelessWidget {
             color: Colors.white,
             child: Column(children: [
               CoverImageWidget(
-                  width: MediaQuery.of(context).size.width,
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width,
                   height: 180,
                   imageUrl: data.userInfo.cover),
               Container(
@@ -153,7 +156,10 @@ class PersonMainHeaderView extends StatelessWidget {
             left: 15,
             top: 105,
             child: Container(
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
                 height: 85,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -167,11 +173,14 @@ class PersonMainHeaderView extends StatelessWidget {
                                   arguments: data.userInfo.icon);
                             },
                             child: CoverImageWidget(
-                              imageUrl: data.userInfo.icon,
-                              width: 80,
-                              height: 80,
-                              borderRadius: 100,
-                            )),
+                                imageUrl: data.userInfo.icon,
+                                width: 80,
+                                height: 80,
+                                borderRadius: 100,
+                                placeholder:
+                                Image.asset('assets/images/ic_avatar.png'),
+                                errorWidget: Image.asset(
+                                    'assets/images/ic_avatar.png'))),
                         Positioned(
                             left: 55,
                             top: 55,

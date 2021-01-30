@@ -32,11 +32,19 @@ class CoverImageWidget extends StatelessWidget {
         width: width,
         height: height,
         imageUrl: imageUrl,
-        // placeholder: (context, url) => placeholder == null
-        //     ? Image.asset('assets/images/ic_launcher.png')
-        //     : placeholder,
+        placeholder: (context, url) => placeholder == null
+            ? Container(
+                decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.all(Radius.circular(
+                        borderRadius == null ? 0 : borderRadius))),
+              )
+            : placeholder,
         errorWidget: (context, url, error) => errorWidget == null
-            ? Image.asset('assets/images/ic_launcher.png')
+            ? Container(
+                child: Center(
+                child: Icon(Icons.error),
+              ))
             : errorWidget,
         imageBuilder: (context, imageProvider) => Container(
               decoration: BoxDecoration(

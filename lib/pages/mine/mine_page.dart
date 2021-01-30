@@ -81,7 +81,9 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
                                 ? ""
                                 : snapshot.data.avatar,
                             placeholder:
-                                Image.asset('assets/images/ic_launcher.png')),
+                                Image.asset('assets/images/ic_avatar.png'),
+                            errorWidget:
+                                Image.asset('assets/images/ic_avatar.png')),
                       ),
                     ),
                   ),

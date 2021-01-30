@@ -224,15 +224,12 @@ class EditPersonDataState extends State<EditPersonDataPage> {
       return CoverImageWidget(
           imageUrl: userInfo.cover,
           width: MediaQuery.of(context).size.width,
-          height: 160,
-          placeholder: Image.asset('assets/images/ic_launcher.png'),
-          errorWidget: Container(color: Colors.grey));
+          height: 160);
     }
   }
 
   priViewAvatar() {
     if (avatarFile != null) {
-      print("linda:   " + "avatarPath:   " + avatarFile.path);
       return Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(100)),
@@ -246,12 +243,7 @@ class EditPersonDataState extends State<EditPersonDataPage> {
       );
     } else {
       return CoverImageWidget(
-          imageUrl: userInfo.icon,
-          width: 80,
-          height: 80,
-          borderRadius: 100,
-          placeholder: Image.asset('assets/images/ic_launcher.png'),
-          errorWidget: Container(color: Colors.grey));
+          imageUrl: userInfo.icon, width: 80, height: 80, borderRadius: 100);
     }
   }
 

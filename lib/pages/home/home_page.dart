@@ -60,7 +60,7 @@ class HomePageState extends State<HomePage>
             children: [
               DrawerHeader(
                   decoration: BoxDecoration(
-                    color: Colors.lightBlue,
+                    color: Colors.blueAccent,
                   ),
                   child: Center(
                     child: SizedBox(
@@ -68,7 +68,8 @@ class HomePageState extends State<HomePage>
                         height: 100,
                         child: CircleAvatar(
                             backgroundImage: new AssetImage(
-                                'assets/images/ic_launcher.png'))),
+                                'assets/images/ic_avatar.png'))
+                    ),
                   )),
               ListTile(
                   leading: Icon(Icons.settings),

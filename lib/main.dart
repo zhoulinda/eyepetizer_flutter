@@ -19,7 +19,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 /// email:   zhoulinda@lexue.com
 /// 创建日期: 2020/12/15
 ///
-///
 void main() {
   runApp(BlocProvider(child: MainPage(), bloc: MainBloc()));
   SystemUiOverlayStyle systemUiOverlayStyle =

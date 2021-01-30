@@ -31,7 +31,9 @@ class AuthorInfo extends StatelessWidget {
                   imageUrl: data.author.icon,
                   width: 46,
                   height: 46,
-                  borderRadius: 100)),
+                  borderRadius: 100,
+                  placeholder: Image.asset('assets/images/ic_avatar.png'),
+                  errorWidget: Image.asset('assets/images/ic_avatar.png'))),
           Expanded(
             child: Container(
                 margin: EdgeInsets.fromLTRB(10, 0, 10, 0),

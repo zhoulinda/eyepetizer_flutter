@@ -68,7 +68,12 @@ class PersonMainPageState extends State<PersonMainPage>
                                   context),
                           sliver: SliverAppBar(
                               title: Text("开眼精选"),
-                              leading: Icon(Icons.arrow_back_ios_outlined),
+                              leading: InkWell(
+                                child: Icon(Icons.arrow_back_ios_outlined),
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
                               titleSpacing: -10,
                               actions: [
                                 Icon(Icons.share),
