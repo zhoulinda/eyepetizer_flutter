@@ -75,15 +75,12 @@ class RecommendPageState extends State<RecommendPage>
                   });
             },
             scrollController: _scrollController,
-            itemCount: snapshot.data == null ? 0 : 4,
+            itemCount: snapshot.data == null ? 0 : 2,
             itemBuilder: (context, index) {
-              if (index == 3) {
+              if (index == 1) {
                 return FooterView(loadStatus: _loadStatus);
-              } else if (index <= 1) {
-                return ViewCardUtil.getViewCard(snapshot.data[index]);
               } else {
-                return StaggeredViewCard(
-                    list: snapshot.data.sublist(2, snapshot.data.length));
+                return StaggeredViewCard(list: snapshot.data);
               }
             },
           );

@@ -30,7 +30,7 @@ class NotificationPageState extends State<NotificationPage>
         backgroundColor: Colors.white,
         body: Center(
             child: Text("Notification",
-                style: TextStyle(fontSize: 60, color: Colors.pink))));
+                style: TextStyle(fontSize: 50, color: Colors.blueAccent))));
   }
 
   void registerListener() {

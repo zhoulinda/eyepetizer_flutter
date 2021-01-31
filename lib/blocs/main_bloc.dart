@@ -114,10 +114,13 @@ class MainBloc extends BaseBloc {
             nextPageUrl: isRefresh ? "" : recommendNextPageUrl);
     recommendNextPageUrl = baseListData.nextPageUrl;
     if (baseListData.itemList != null && baseListData.itemList.length > 0) {
+      List<Item> items = baseListData.itemList
+          .where((value) => value.type == "communityColumnsCard")
+          .toList();
       if (isRefresh) {
         recommendItems.clear();
       }
-      recommendItems.addAll(baseListData.itemList);
+      recommendItems.addAll(items);
     }
     recommendStreamController.sink.add(recommendItems);
     if (onLoadCompleted != null) {
