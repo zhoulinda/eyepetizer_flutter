@@ -14,5 +14,5 @@
 ![image](https://github.com/zhoulinda/eyepetizer_flutter/blob/main/assets/images/project_%20structure.jpg)
 
 ## 博客地址
-[掘金](https://github.com/zhoulinda/eyepetizer_flutter)
+[掘金](https://juejin.cn/user/43636193764711)
 
