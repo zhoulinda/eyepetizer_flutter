@@ -26,11 +26,12 @@ class BannerCard extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
           child: Row(
             children: [
-              CoverImageWidget(
-                  imageUrl: data.header.icon,
-                  width: 50,
-                  height: 50,
-                  borderRadius: 100),
+              Image.network(data.header.icon),
+              // CoverImageWidget(
+              //     imageUrl: data.header.icon,
+              //     width: 50,
+              //     height: 50,
+              //     borderRadius: 100),
               SizedBox(width: 20),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
