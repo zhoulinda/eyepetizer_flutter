@@ -50,16 +50,16 @@ class HttpManager {
     _dio.interceptors.add(ErrorInterceptors(_dio));
 
     ///设置代理
-    if (!AppUtil.isReleaseMode()) {
-      (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-          (HttpClient client) {
-        client.findProxy = (uri) {
-          return "PROXY " + Proxy.HOST + ":" + Proxy.PORT;
-        };
-        client.badCertificateCallback =
-            (X509Certificate cert, String host, int port) => true;
-      };
-    }
+    // if (!AppUtil.isReleaseMode()) {
+    //   (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+    //       (HttpClient client) {
+    //     client.findProxy = (uri) {
+    //       return "PROXY " + Proxy.HOST + ":" + Proxy.PORT;
+    //     };
+    //     client.badCertificateCallback =
+    //         (X509Certificate cert, String host, int port) => true;
+    //   };
+    // }
   }
 
   Future<Map<String, dynamic>> request(String path,
