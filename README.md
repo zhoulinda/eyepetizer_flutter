@@ -13,6 +13,6 @@
 ## 项目结构
 ![image](https://github.com/zhoulinda/eyepetizer_flutter/blob/main/assets/images/project_%20structure.jpg)
 
-## 博客地址
-[掘金](https://juejin.cn/user/43636193764711)
+## 相关
+[Kotlin——仿开眼短视频APP](https://juejin.cn/post/6934609476561584142)
 
